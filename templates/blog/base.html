@@ -1,0 +1,99 @@
+{% load static %}
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="Miguel Puente">
+    <title>Blog CAC</title>
+    <link href= {% static 'blog/css/bootstrap.min.css' %} rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href={% static 'blog/css/blog.css' %} rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+  <div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href={% url 'home' %} class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <img class="bi me-2" width="40" height="32" src={% static 'blog/img/logoCACsinbloque.png' %}>
+        <span class="fs-4">Blog CAC</span>
+      </a>
+    </header>
+
+    <main class="mt-2">
+      
+
+    <section class="row g-5">
+        <!-- TODOS LOS POSTS -->
+        <div class="col-md-8">
+          <!-- ULTIMO POST - ARRIBA DE TODO -->
+
+            {% block contenido %}
+            {% endblock contenido %}
+        </div>
+
+        <!-- ASIDE -->
+        <aside class="col-md-4">
+          <div class="position-sticky" style="top: 2rem;">
+            <div class="p-4 mb-3 bg-light rounded">
+              <h4 class="fst-italic">Acerca de</h4>
+              <p class="mb-0">{{ acerca }}</p>
+            </div>
+
+            <div class="p-4">
+              <h4 class="fst-italic">Categorías</h4>
+              <ol class="list-unstyled mb-0">
+
+                {% for categoria in categorias %}
+                  <li><a href= {% url 'category' categoria.id %}>{{ categoria.nombre }}</a></li>
+                {% endfor %}
+
+              </ol>
+            </div>
+
+            <div class="p-4">
+              <h4 class="fst-italic">Archivos</h4>
+              <ol class="list-unstyled mb-0">
+                {% for dato in dates %}
+                  {% if dato.month == 1 %}<li><a href={% url 'dates' dato.month dato.year %}>Enero de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 2 %}<li><a href={% url 'dates' dato.month dato.year %}>Febrero de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 3 %}<li><a href={% url 'dates' dato.month dato.year %}>Marzo de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 4 %}<li><a href={% url 'dates' dato.month dato.year %}>Abril de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 5 %}<li><a href={% url 'dates' dato.month dato.year %}>Mayo de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 6 %}<li><a href={% url 'dates' dato.month dato.year %}>Junio de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 7 %}<li><a href={% url 'dates' dato.month dato.year %}>Julio de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 8 %}<li><a href={% url 'dates' dato.month dato.year %}>Agosto de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 9 %}<li><a href={% url 'dates' dato.month dato.year %}>Septiembre de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 10 %}<li><a href={% url 'dates' dato.month dato.year %}>Octubre {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 11 %}<li><a href={% url 'dates' dato.month dato.year %}>Noviembre de {{ dato.year }}</a></li>{% endif %}
+                  {% if dato.month == 12 %}<li><a href={% url 'dates' dato.month dato.year %}>Diciembre de {{ dato.year }}</a></li>{% endif %}
+                {% endfor %}
+              </ol>
+            </div>
+
+            <div class="p-4">
+              <h4 class="fst-italic">Nuestras redes</h4>
+              <ol class="list-unstyled">
+                {% for link in contexto %}
+                  {% if link.url %}
+                    <li><a href='{{ link.url }}'><i class='{{ link.icono }}'></i>{{ link.nombre }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ol>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main> 
+
+    <footer class="blog-footer">
+      <p>Todos los derechos reservados</p>
+      <p>
+        <a href="#">Ir arriba</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

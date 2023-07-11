@@ -1,0 +1,82 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+{% for articulo in articulos %}
+    {% if forloop.first and articulos.number == 1 %}
+      {% if request.path == '/' %}
+        <div class="p-4 p-md-5 mb-4 rounded text-bg-info">
+          <div class="col-md-12 px-0">
+            <h1 class="display-4 fst-italic text-white">{{ articulo.titulo }}</h1>
+            <p class="lead my-3">{{ articulo.bajada }}</p>
+            <p class="lead mb-0"><a href={% url 'post' articulo.id %} class="text-white fw-bold">Seguir leyendo...</a></p>
+          </div>
+        </div>
+      {% endif %}
+    {% else %}
+      {% if forloop.counter|divisibleby:2 %}
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-5">
+              <img src= {{ articulo.imagen.url }} class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-7">
+              <div class="card-body">
+                <strong class="d-inline-block mb-2 text-primary">{{ articulo.categoria }}</strong>
+                <h4 class="mb-0">{{ articulo.titulo }}</h4>
+                <div class="mb-1 text-muted">{{ articulo.creacion|date:'d M Y' }}</div>
+                <p class="card-text mb-auto">{{ articulo.bajada }}</p>
+                <p class="card-text"><small class="text-muted"><a href={% url 'post' articulo.id %} class="stretched-link">Seguir leyendo</a></small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% else %}
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-7">
+                <div class="card-body">
+                  <strong class="d-inline-block mb-2 text-primary">{{ articulo.categoria }}</strong>
+                  <h4 class="mb-0">{{ articulo.titulo }}</h4>
+                  <div class="mb-1 text-muted">{{ articulo.creacion }}</div>
+                  <p class="card-text mb-auto">{{ articulo.bajada }}</p>
+                  <p class="card-text"><small class="text-muted"><a href= {% url 'post' articulo.id %} class="stretched-link">Seguir leyendo</a></small></p>
+                </div>
+              </div>
+          
+              <div class="col-md-5">
+                <img src= {{ articulo.imagen.url }} class="img-fluid rounded-end float-end" alt="...">
+              </div>
+            </div>
+          </div>
+        {% endif %}
+    {% endif %}
+  {% endfor %}
+
+<!-- NAVEGACION ENTRE ARTICULOS MAS ANTIGUOS - PAGINACION -->
+<hr>
+  <nav aria-label="...">
+    <ul class="pagination justify-content-center">
+
+      <li class="page-item"><a class="page-link" href="?pagina=1">Inicio</a></li>
+        <li class="page-item {% if articulos.number == 1 %}disabled{% endif %}"><a class="page-link" href="{% if articulos.number != 1 %}?pagina={{ articulos.previous_page_number }}{% endif %}">Anterior</a></li>
+
+      <li class="page-item active"><a class="page-link" href="?pagina={{ articulos.number }}">{{ articulos.number }}</a></li>
+
+        <li class="page-item {% if articulos.number == articulos.paginator.num_pages %}disabled{% endif %}"><a class="page-link" href="{% if articulos.number != articulos.paginator.num_pages %}?pagina={{ articulos.next_page_number }}{% endif %}">Siguiente</a></li>
+
+      <li class="page-item"><a class="page-link" href="?pagina={{ articulos.paginator.num_pages }}">Última</a></li>
+
+    </ul>
+  </nav>
+<hr>
+
+  {% if request.path != '/' %}
+    <div class="my-3">
+      <a class="btn btn-success rounded-pill" href= {% url 'home' %}>Volver al Inicio</a>
+      </div>
+  {% endif %}
+
+{% endblock contenido %}
