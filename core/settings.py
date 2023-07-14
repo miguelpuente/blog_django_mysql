@@ -56,10 +56,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'apps.blog.processors.contexto_link',
-                'apps.blog.processors.contexto_acerca',
-                'apps.blog.processors.contexto_categoria',
-                'apps.blog.processors.contexto_historial',
+                'apps.blog.processors.contexto_base'
             ],
         },
     },

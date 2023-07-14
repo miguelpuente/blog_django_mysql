@@ -50,6 +50,6 @@ admin.site.register(models.Acerca, AcercaAdmin)
 
 class LinkAdmin(admin.ModelAdmin):
     readonly_fields = ('creacion', 'actualizacion')
-    list_display = ('nombre','key', 'url', 'icono')
+    list_display = ('nombre', 'url', 'icono')
 
 admin.site.register(models.Link, LinkAdmin)

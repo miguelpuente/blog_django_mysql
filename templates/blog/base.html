@@ -39,7 +39,7 @@
           <div class="position-sticky" style="top: 2rem;">
             <div class="p-4 mb-3 bg-light rounded">
               <h4 class="fst-italic">Acerca de</h4>
-              <p class="mb-0">{{ acerca }}</p>
+              <p class="mb-0"> {{ acerca }} </p>
             </div>
 
             <div class="p-4">
@@ -56,19 +56,8 @@
             <div class="p-4">
               <h4 class="fst-italic">Archivos</h4>
               <ol class="list-unstyled mb-0">
-                {% for dato in dates %}
-                  {% if dato.month == 1 %}<li><a href={% url 'dates' dato.month dato.year %}>Enero de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 2 %}<li><a href={% url 'dates' dato.month dato.year %}>Febrero de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 3 %}<li><a href={% url 'dates' dato.month dato.year %}>Marzo de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 4 %}<li><a href={% url 'dates' dato.month dato.year %}>Abril de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 5 %}<li><a href={% url 'dates' dato.month dato.year %}>Mayo de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 6 %}<li><a href={% url 'dates' dato.month dato.year %}>Junio de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 7 %}<li><a href={% url 'dates' dato.month dato.year %}>Julio de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 8 %}<li><a href={% url 'dates' dato.month dato.year %}>Agosto de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 9 %}<li><a href={% url 'dates' dato.month dato.year %}>Septiembre de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 10 %}<li><a href={% url 'dates' dato.month dato.year %}>Octubre {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 11 %}<li><a href={% url 'dates' dato.month dato.year %}>Noviembre de {{ dato.year }}</a></li>{% endif %}
-                  {% if dato.month == 12 %}<li><a href={% url 'dates' dato.month dato.year %}>Diciembre de {{ dato.year }}</a></li>{% endif %}
+                {% for fecha in archivos %}
+                  <li><a href={% url 'dates' fecha.fecha.month fecha.fecha.year %}>{{fecha.mes_letra | capfirst }} de {{ fecha.fecha.year}}</a></li>
                 {% endfor %}
               </ol>
             </div>
@@ -76,7 +65,7 @@
             <div class="p-4">
               <h4 class="fst-italic">Nuestras redes</h4>
               <ol class="list-unstyled">
-                {% for link in contexto %}
+                {% for link in redes %}
                   {% if link.url %}
                     <li><a href='{{ link.url }}'><i class='{{ link.icono }}'></i>{{ link.nombre }}</a></li>
                   {% endif %}

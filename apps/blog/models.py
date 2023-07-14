@@ -85,7 +85,6 @@ class Acerca(models.Model):
 # Modelo Redes Sociales
 
 class Link(models.Model):
-    key = models.CharField(max_length=100, verbose_name='Key Link')
     nombre = models.CharField(max_length=150, verbose_name='Red Social')
     url = models.URLField(max_length=300, null=True, blank=True, verbose_name='Enlace')
     icono = models.CharField(max_length=150, null=True, blank=True, verbose_name='Icono')
